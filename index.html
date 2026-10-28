@@ -501,7 +501,7 @@ const POSES = (() => {
 
 /* Содержание приложения. Источник: буклет аттестации + PDF «аттестация_новая версия3». */
 const DATA = {
-  version: "0.20.2",
+  version: "0.21.0",
   title: "Tkd guide",
   oath: [
     "Я буду любить свою Родину и делать все возможное для ее процветания.",
@@ -1784,10 +1784,11 @@ function testRun(id, sec) {
 
 /* ---------- «Ещё» ---------- */
 function more() {
-  layout("Ещё", `<h2>Тема оформления</h2><div class="card"><div class="seg" id="theme">${[["auto","Авто"],["light","Светлая"],["dark","Тёмная"]].map(t => `<button data-t="${t[0]}" class="${themeMode() === t[0] ? "on" : ""}">${t[1]}</button>`).join("")}</div></div><div class="card"><p class="kv"><span>Версия приложения</span><b>${DATA.version}</b></p><p class="kv"><span>Обновление</span><b id="upd">проверяется…</b></p></div>
+  layout("Ещё", `<h2>Тема оформления</h2><div class="card"><div class="seg" id="theme">${[["auto","Авто"],["light","Светлая"],["dark","Тёмная"]].map(t => `<button data-t="${t[0]}" class="${themeMode() === t[0] ? "on" : ""}">${t[1]}</button>`).join("")}</div></div><div class="card"><p class="kv"><span>Версия приложения</span><b>${DATA.version}</b></p><p class="kv"><span>Обновление</span><b id="upd">проверяется…</b></p><p class="kv"><span>Фото и видео офлайн</span><b id="mst">…</b></p></div>
    <p class="small">Приложение обновляется само: при каждом запуске оно проверяет новую версию и загружает её. Прогресс хранится на этом телефоне.</p>
    <button class="btn wide alt" id="reset">Сбросить мой прогресс</button><button class="btn wide alt" id="out">Выйти (потребуется код)</button><a class="btn wide alt" href="#/editor">Режим редактора (для инструктора)</a>`, {tab:"more"});
   document.querySelectorAll("#theme button").forEach(bt => bt.onclick = () => { LS.set("theme", bt.dataset.t); applyTheme(); more(); });
+  mediaCount().then(r => { const m = $("#mst"); if (m) m.textContent = r[0] + " из " + r[1]; });
   checkUpdate().then(r => { const u = $("#upd"); if (u) u.textContent = r; });
   $("#reset").onclick = () => { if (confirm("Сбросить отметки и результаты тестов на этом телефоне?")) { Object.keys(localStorage).filter(k => k.indexOf("tkd:") === 0 && k !== "tkd:auth").forEach(k => localStorage.removeItem(k)); route(); } };
   $("#out").onclick = () => { LS.set("auth", ""); route(); };
@@ -1906,6 +1907,40 @@ document.addEventListener("click", e => {
 });
 window.addEventListener("hashchange", route);
 
+/* ---------- фото и видео офлайн ---------- */
+function mediaList() {
+  const L = [];
+  Object.keys(VIDEOS).forEach(k => { for (let i = 1; i <= VIDEOS[k]; i++) L.push(["tkd-video", `video/${k}-${i}.mp4`]); });
+  Object.keys(PHOTOS).forEach(k => { for (let i = 1; i <= PHOTOS[k]; i++) L.push(["tkd-media", `img/${k}-${i}.jpg`]); });
+  return L.map(x => [x[0], new URL(x[1], location.href).href]);
+}
+async function mediaCount() {
+  if (!("caches" in window)) return [0, 0];
+  const L = mediaList(); let n = 0;
+  for (const x of L) { try { if (await (await caches.open(x[0])).match(x[1])) n++; } catch (e) {} }
+  return [n, L.length];
+}
+let warming = false;
+async function warmMedia() {
+  if (warming || !("caches" in window) || navigator.onLine === false) return;
+  warming = true;
+  const fresh = LS.get("mediaVer", "") !== DATA.version;
+  try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
+  let ok = true;
+  for (const x of mediaList()) {
+    try {
+      const c = await caches.open(x[0]);
+      if (x[0] === "tkd-video" ? !(await c.match(x[1])) : (fresh || !(await c.match(x[1])))) {
+        const r = await fetch(x[1], {cache:"no-store"}); if (r.ok) await c.put(x[1], r); else ok = false;
+      }
+    } catch (e) { ok = false; }
+  }
+  if (ok) LS.set("mediaVer", DATA.version);
+  warming = false;
+  const m = $("#mst"); if (m) mediaCount().then(r => { m.textContent = r[0] + " из " + r[1]; });
+}
+window.addEventListener("online", () => warmMedia());
+
 /* ---------- автообновление ---------- */
 async function checkUpdate() {
   try {
@@ -1916,6 +1951,7 @@ async function checkUpdate() {
 if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
   navigator.serviceWorker.register("sw.js").then(reg => {
     reg.update && reg.update();
+    navigator.serviceWorker.ready.then(() => setTimeout(warmMedia, 1500));
     let reloaded = false;
     navigator.serviceWorker.addEventListener("controllerchange", () => { if (reloaded || !navigator.serviceWorker.controller) return; reloaded = true; location.reload(); });
   }).catch(() => {});
