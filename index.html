@@ -13,7 +13,7 @@
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 -apple-system,system-ui,"Segoe UI",Roboto,sans-serif}
 #app{max-width:560px;margin:0 auto;min-height:100vh;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
-.top{position:sticky;top:0;z-index:5;background:var(--nav);color:#fff;display:flex;align-items:center;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;border-bottom:4px solid;border-image:linear-gradient(90deg,#2ee07a,#ffd60a,#3a8dff,#ff5a4d) 1}.top .lg{width:38px;height:28px;flex:none;color:#fff}
+.top{position:sticky;top:0;z-index:5;background:var(--nav);color:#fff;display:flex;align-items:center;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;border-bottom:3px solid var(--acc)}.top .lg{width:38px;height:28px;flex:none;color:#fff}
 .top h1{font-size:20px;margin:0;line-height:1.25;font-weight:700;letter-spacing:.01em}
 .back{font-size:30px;line-height:1;text-decoration:none;color:#fff;padding:0 10px 4px 0;margin-left:-6px;min-width:34px}
 main{padding:16px}
@@ -103,8 +103,6 @@ form#ef input{width:100%;font-size:16px;padding:12px;border:1px solid var(--line
 
 .ic{--c:#2ee07a;background:color-mix(in srgb,var(--c) 24%,var(--card))}
 .c-req{--c:#ffb703}.c-theory{--c:#3a8dff}.c-words{--c:#14c8b4}.c-stances{--c:#2bc16c}.c-kicks{--c:#ff6b4a}.c-hands{--c:#a66bff}.c-judging{--c:#f4c430}.c-all{--c:#ffd60a}
-.bar i,.prog i{background:linear-gradient(90deg,#2ee07a,#ffd60a)}
-.banner{border-bottom:0;position:relative;overflow:hidden}.banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,#2ee07a,#ffd60a,#3a8dff,#ff5a4d)}
 .res .big{letter-spacing:.01em}
 .btn{box-shadow:0 3px 0 #00000026}
 .opt:active,.card:active{transform:scale(.99)}
@@ -501,7 +499,7 @@ const POSES = (() => {
 
 /* Содержание приложения. Источник: буклет аттестации + PDF «аттестация_новая версия3». */
 const DATA = {
-  version: "0.19.0",
+  version: "0.19.1",
   title: "Tkd guide",
   oath: [
     "Я буду любить свою Родину и делать все возможное для ее процветания.",
