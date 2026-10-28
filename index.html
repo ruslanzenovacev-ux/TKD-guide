@@ -493,7 +493,7 @@ const POSES = (() => {
 
 /* Содержание приложения. Источник: буклет аттестации + PDF «аттестация_новая версия3». */
 const DATA = {
-  version: "0.18.0",
+  version: "0.18.1",
   title: "Tkd guide",
   oath: [
     "Я буду любить свою Родину и делать все возможное для ее процветания.",
@@ -1691,7 +1691,7 @@ function cards(id) {
 
 /* ---------- тесты ---------- */
 function testsPage() {
-  layout("Тесты", `<p class="lead">В тесте по поясу 30 вопросов; можно пройти весь тест или отдельный раздел. Для зачёта — 80% и выше.</p>
+  layout("Тесты", `<p class="lead">В тесте по поясу 30 вопросов; можно пройти весь тест или отдельный раздел.</p>
    ${DATA.belts.map(b => { const best = bestOf(b.id); return `<a class="card belt" href="#/test/${b.id}">${beltSwatch(b)}<div class="grow"><b>${esc(b.title)}</b><span>${esc(b.name)}</span></div><small>${best != null ? "лучший " + best + "%" : "не пройден"}</small></a>`; }).join("")}
    <h2>По теме</h2>
    <a class="card belt" href="#/test/judging"><span class="swatch" style="--b:#2a5fc4"><i></i></span><div class="grow"><b>Судейство</b><span>туль, спарринг, разбивание, экипировка, командные</span></div><small>${bestOf("judging") != null ? "лучший " + bestOf("judging") + "%" : "не пройден"}</small></a>
@@ -1745,7 +1745,7 @@ function testHub(id) {
   const P = pools([id]), n = k => Math.min(testTotal(id), P[k].length);
   const all = Object.keys(P).reduce((s, k) => s + P[k].length, 0);
   const bt = k => { const v = bestOf(k); return v != null ? "лучший " + v + "%" : "не пройден"; };
-  layout("Тест " + b.title, `<div class="hero">${beltSwatch(b, true)}<div><b>${esc(b.name)}</b><span>Для зачёта нужно 80% и выше</span></div></div>
+  layout("Тест " + b.title, `<div class="hero">${beltSwatch(b, true)}<div><b>${esc(b.name)}</b><span>Выберите весь тест или раздел</span></div></div>
    <a class="card sec" href="#/test/${id}/all"><b class="ic">🏆</b><div class="grow"><b>Весь тест</b><span>${pl(Math.min(30, all), ["вопрос","вопроса","вопросов"])} из всех разделов</span></div><small class="best">${bt(id)}</small></a>
    <h2>Разделы</h2>
    ${TSECS.filter(s => P[s[0]].length).map(s => `<a class="card sec" href="#/test/${id}/${s[0]}"><b class="ic">${s[2]}</b><div class="grow"><b>${s[1]}</b><span>${pl(n(s[0]), ["вопрос","вопроса","вопросов"])}</span></div><small class="best">${bt(id + ":" + s[0])}</small></a>`).join("")}`, {back:"#/tests", tab:"tests"});
