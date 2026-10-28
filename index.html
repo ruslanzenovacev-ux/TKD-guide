@@ -493,7 +493,7 @@ const POSES = (() => {
 
 /* Содержание приложения. Источник: буклет аттестации + PDF «аттестация_новая версия3». */
 const DATA = {
-  version: "0.18.1",
+  version: "0.18.2",
   title: "Tkd guide",
   oath: [
     "Я буду любить свою Родину и делать все возможное для ее процветания.",
@@ -1551,7 +1551,7 @@ function home() {
       <small>${p}/${secs(b).length}${best != null ? `<br>тест ${best}%` : ""}</small></a>`;
   }).join("");
   layout(DATA.title, `<div class="banner"><i class="lg emb" aria-hidden="true"></i><div><b>Tkd guide</b><span>Федерация тхэквондо МФТ<br>Республика Адыгея</span></div></div>
-    <p class="lead">Выберите пояс и изучайте раздел за разделом. После изучения — пройдите тест.</p>${cards}
+    ${cards}
     <h2>Общее</h2>
     <a class="card row" href="#/oath"><b>Клятва Таеквон-До</b><span>12 пунктов</span></a>
     <a class="card row" href="#/belts"><b>Система поясов</b><span>цвета и степени</span></a>`, {tab:"learn"});
