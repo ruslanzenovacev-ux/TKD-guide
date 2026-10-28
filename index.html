@@ -492,7 +492,7 @@ const POSES = (() => {
 
 /* Содержание приложения. Источник: буклет аттестации + PDF «аттестация_новая версия3». */
 const DATA = {
-  version: "0.16.6",
+  version: "0.16.7",
   title: "Tkd guide",
   oath: [
     "Я буду любить свою Родину и делать все возможное для ее процветания.",
@@ -1459,7 +1459,7 @@ const JUDGING_FACTS = {
 DATA.belts.forEach(b => { if (JUDGING[b.id]) { b.judging = JUDGING[b.id]; b.facts = b.facts.concat(JUDGING_FACTS[b.id].map(f => f.concat("j"))); } else b.judging = []; });
 
 /* Приложение «Аттестация Таеквон-До» */
-const CLUB_CODE_HASH = "1tlddeojkep";
+const CLUB_CODE_HASH = "bf2oqj93co";
 const $ = (s, r) => (r || document).querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const LS = {
