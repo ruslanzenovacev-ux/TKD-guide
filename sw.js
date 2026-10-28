@@ -1,5 +1,5 @@
 /* Сервис-воркер: офлайн + автообновление. Версия подставляется при сборке. */
-const V = "tkd-0.16.0";
+const V = "tkd-0.16.1";
 self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(V).then(c => c.addAll(["./", "index.html", "manifest.webmanifest", "icon-192.png"]).catch(() => {}))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V && k !== "tkd-video").map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", e => {
