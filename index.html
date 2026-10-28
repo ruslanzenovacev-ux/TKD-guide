@@ -13,7 +13,7 @@
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 -apple-system,system-ui,"Segoe UI",Roboto,sans-serif}
 #app{max-width:560px;margin:0 auto;min-height:100vh;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
-.top{position:sticky;top:0;z-index:5;background:var(--nav);color:#fff;display:flex;align-items:center;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;border-bottom:3px solid var(--acc)}.top .lg{width:38px;height:28px;flex:none;color:#fff}
+.top{position:sticky;top:0;z-index:5;background:var(--nav);color:#fff;display:flex;align-items:center;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;border-bottom:4px solid;border-image:linear-gradient(90deg,#2ee07a,#ffd60a,#3a8dff,#ff5a4d) 1}.top .lg{width:38px;height:28px;flex:none;color:#fff}
 .top h1{font-size:20px;margin:0;line-height:1.25;font-weight:700;letter-spacing:.01em}
 .back{font-size:30px;line-height:1;text-decoration:none;color:#fff;padding:0 10px 4px 0;margin-left:-6px;min-width:34px}
 main{padding:16px}
@@ -23,7 +23,7 @@ p{margin:0 0 10px}
 a{color:var(--acc)}
 .lead{color:var(--mut)}.warn{background:var(--badbg);padding:8px 12px;border-radius:10px;color:var(--ink)}
 .small{font-size:14px;color:var(--mut)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 12px;color:inherit;text-decoration:none;display:block;box-shadow:var(--sh)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin:0 0 12px;color:inherit;text-decoration:none;display:block;box-shadow:var(--sh)}
 .card.belt,.card.sec,.card.row,.hero{display:flex;align-items:center;gap:12px}
 .card.row{justify-content:space-between}.card.row span,.card.belt span,.card.sec span{color:var(--mut);font-size:15px}.card.belt b,.card.sec b{font-size:18px}
 .grow{flex:1;min-width:0}.grow b,.grow span{display:block}
@@ -100,6 +100,14 @@ form#ef input{width:100%;font-size:16px;padding:12px;border:1px solid var(--line
 
 .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0 4px}.seg button{font:inherit;font-weight:600;padding:12px 6px;min-height:48px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}.seg button.on{background:var(--acc);border-color:var(--acc);color:var(--accw)}
 .card small.best{color:var(--mut);font-size:13px;text-align:right;max-width:90px;line-height:1.25}
+
+.ic{--c:#2ee07a;background:color-mix(in srgb,var(--c) 24%,var(--card))}
+.c-req{--c:#ffb703}.c-theory{--c:#3a8dff}.c-words{--c:#14c8b4}.c-stances{--c:#2bc16c}.c-kicks{--c:#ff6b4a}.c-hands{--c:#a66bff}.c-judging{--c:#f4c430}.c-all{--c:#ffd60a}
+.bar i,.prog i{background:linear-gradient(90deg,#2ee07a,#ffd60a)}
+.banner{border-bottom:0;position:relative;overflow:hidden}.banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,#2ee07a,#ffd60a,#3a8dff,#ff5a4d)}
+.res .big{letter-spacing:.01em}
+.btn{box-shadow:0 3px 0 #00000026}
+.opt:active,.card:active{transform:scale(.99)}
 </style></head><body><div id="app"></div><script>const VIDEOS = {"anuro_nerye_chagi": 1, "anuro_nulo_chagi": 1, "anuro_sason_olligi": 1, "anuro_sevo_chagi": 1, "ap_cha_busigi": 1, "ap_cha_olligi": 2, "ap_murup_chagi": 1, "bakuro_nerye_chagi": 1, "bakuro_nulo_chagi": 1, "bakuro_sason_olligi": 1, "bakuro_sevo_chagi": 1, "bande_dolle_chagi": 2, "bande_dolle_goro_chagi": 2, "bituro_murup_chagi": 1, "dolle_chagi": 1, "dolle_murup_chagi": 1, "dvitcha_busigi": 2, "dvitcha_olligi": 1, "goro_chagi": 2, "olle_murup_chagi": 1, "siro_chagi": 1, "timio_anuro_nerye_chagi": 1, "timio_ap_chagi": 1, "timio_bakuro_nerye_chagi": 1, "timio_bande_dolle_chagi": 1, "timio_bande_dolle_goro_chagi": 1, "timio_dolle_chagi": 1, "timio_dvitcha_chagi": 1, "timio_goro_chagi": 1, "timio_tora_sevo_chagi": 1, "timio_tora_yupcha_jirigi": 2, "timio_yupcha_jirigi": 1, "tora_nerye_chagi": 1, "tora_sevo_chagi": 1, "tora_yupcha_jirigi": 2, "yup_ap_cha_busigi": 1, "yup_cha_olligi": 2, "yupcha_jirigi": 2};
 const PHOTOS = {"annun": 1, "charyot": 1, "chunbi": 1, "dvitbal": 2, "godzhong": 1, "guburyo_a": 2, "guburyo_b": 1, "gunun": 1, "kyocha": 1, "kyonne_jase": 1, "moa_a": 2, "moa_b": 1, "moa_c": 1, "moa_d": 1, "nache": 2, "nara_ni": 1, "niunja": 2, "sudzhik": 2};
 /* Схематичные фигуры: прямая кинематика (углы), вид сбоку (s) и спереди (f).
@@ -493,7 +501,7 @@ const POSES = (() => {
 
 /* Содержание приложения. Источник: буклет аттестации + PDF «аттестация_новая версия3». */
 const DATA = {
-  version: "0.18.2",
+  version: "0.19.0",
   title: "Tkd guide",
   oath: [
     "Я буду любить свою Родину и делать все возможное для ее процветания.",
@@ -1574,7 +1582,7 @@ function beltPage(id) {
     req:"ОФП, туль, что нужно уметь", theory:`${pl(b.qa.length, ["вопрос","вопроса","вопросов"])}, команды, термины`, stances:pl(b.stances.length, ["стойка","стойки","стоек"]),
     kicks:pl(b.kicks.length, ["техника","техники","техник"]), hands:pl(b.hands.length, ["техника","техники","техник"]), judging:(b.judging || []).map(g => g.title.replace(/ \(.*\)/, "")).join(", ")
   };
-  const items = secs(b).map(s => `<a class="card sec" href="#/belt/${id}/${s}"><b class="ic">${icons[s]}</b><div class="grow"><b>${SEC_NAME[s]}</b><span>${esc(info[s])}</span></div>${isDone(id, s) ? '<em class="ok">✓</em>' : ""}</a>`).join("");
+  const items = secs(b).map(s => `<a class="card sec" href="#/belt/${id}/${s}"><b class="ic c-${s}">${icons[s]}</b><div class="grow"><b>${SEC_NAME[s]}</b><span>${esc(info[s])}</span></div>${isDone(id, s) ? '<em class="ok">✓</em>' : ""}</a>`).join("");
   layout(b.title, `<div class="hero">${beltSwatch(b, true)}<div><b>${esc(b.name)}</b><span>${beltProgress(b)} из ${secs(b).length} разделов изучено</span></div></div>
    ${items}<a class="btn wide" href="#/test/${id}">Пройти тест ${esc(b.title)}</a>
    ${b.quote ? `<p class="quote">${esc(b.quote)}</p>` : ""}`, {back:"#/", tab:"learn"});
@@ -1746,9 +1754,9 @@ function testHub(id) {
   const all = Object.keys(P).reduce((s, k) => s + P[k].length, 0);
   const bt = k => { const v = bestOf(k); return v != null ? "лучший " + v + "%" : "не пройден"; };
   layout("Тест " + b.title, `<div class="hero">${beltSwatch(b, true)}<div><b>${esc(b.name)}</b><span>Выберите весь тест или раздел</span></div></div>
-   <a class="card sec" href="#/test/${id}/all"><b class="ic">🏆</b><div class="grow"><b>Весь тест</b><span>${pl(Math.min(30, all), ["вопрос","вопроса","вопросов"])} из всех разделов</span></div><small class="best">${bt(id)}</small></a>
+   <a class="card sec" href="#/test/${id}/all"><b class="ic c-all">🏆</b><div class="grow"><b>Весь тест</b><span>${pl(Math.min(30, all), ["вопрос","вопроса","вопросов"])} из всех разделов</span></div><small class="best">${bt(id)}</small></a>
    <h2>Разделы</h2>
-   ${TSECS.filter(s => P[s[0]].length).map(s => `<a class="card sec" href="#/test/${id}/${s[0]}"><b class="ic">${s[2]}</b><div class="grow"><b>${s[1]}</b><span>${pl(n(s[0]), ["вопрос","вопроса","вопросов"])}</span></div><small class="best">${bt(id + ":" + s[0])}</small></a>`).join("")}`, {back:"#/tests", tab:"tests"});
+   ${TSECS.filter(s => P[s[0]].length).map(s => `<a class="card sec" href="#/test/${id}/${s[0]}"><b class="ic c-${s[0]}">${s[2]}</b><div class="grow"><b>${s[1]}</b><span>${pl(n(s[0]), ["вопрос","вопроса","вопросов"])}</span></div><small class="best">${bt(id + ":" + s[0])}</small></a>`).join("")}`, {back:"#/tests", tab:"tests"});
 }
 function testRun(id, sec) {
   const rng = rangeOf(id), jt = id === "judging", ids = jt ? DATA.belts.filter(b => b.judging && b.judging.length).map(b => b.id) : rng || [id];
@@ -1781,7 +1789,7 @@ function testRun(id, sec) {
     const pct = Math.round(score / Qs.length * 100), best = bestOf(key);
     if (best == null || pct > best) LS.set("best:" + key, pct);
     const pass = pct >= 80;
-    layout("Результат", `<div class="card center res ${pass ? "good" : "bad"}"><div class="big">${pct}%</div><p>${score} из ${Qs.length} верно</p><b>${pass ? "Отлично! Вы готовы к этой части аттестации." : "Пока не зачтено. Повторите материал и попробуйте снова."}</b></div>
+    layout("Результат", `<div class="card center res ${pass ? "good" : "bad"}"><div class="big">${pass ? "🎉 " : "💪 "}${pct}%</div><p>${score} из ${Qs.length} верно</p><b>${pass ? "Отлично! Вы готовы к этой части аттестации." : "Пока не зачтено. Повторите материал и попробуйте снова."}</b></div>
       ${wrong.length ? `<h2>Над чем поработать</h2><div class="card">${wrong.map(q => `<p><b>${esc(q.q)}</b><br><span class="ans">${esc(q.a)}</span></p>`).join("")}</div>` : ""}
       <a class="btn wide" href="#/test/${id}${sec ? "/" + sec : jt ? "" : "/all"}" id="again">Ещё раз</a><a class="btn wide alt" href="${backTo}">${!rng && !jt ? "К разделам теста" : "К списку тестов"}</a>`, {tab:"tests"});
     $("#again").onclick = e => { e.preventDefault(); testRun(id, sec); };
