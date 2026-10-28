@@ -1,5 +1,5 @@
 /* Сервис-воркер: офлайн + автообновление. Версия подставляется при сборке. */
-const V = "tkd-0.21.2";
+const V = "tkd-0.22.0";
 self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(V).then(c => c.addAll(["./", "index.html", "manifest.webmanifest", "icon-192.png"]).catch(() => {}))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V && k !== "tkd-video" && k !== "tkd-media").map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", e => {
@@ -7,7 +7,9 @@ self.addEventListener("fetch", e => {
   const pu = new URL(e.request.url);
   if (pu.pathname.includes("/video/")) { e.respondWith(vid(e.request)); return; }
   if (pu.pathname.includes("/img/")) { e.respondWith(img(e.request)); return; }
-  e.respondWith(fetch(e.request).then(r => { const cp = r.clone(); caches.open(V).then(c => c.put(e.request, cp)); return r; }).catch(() => caches.match(e.request).then(m => m || caches.match("index.html"))));
+  const nav = e.request.mode === "navigate", skip = pu.pathname.endsWith("version.json");
+  e.respondWith(fetch(e.request).then(r => { if (!skip && r.ok) { const cp = r.clone(); caches.open(V).then(c => c.put(e.request, cp)); } return r; })
+    .catch(() => caches.match(e.request, {ignoreSearch: true}).then(m => m || (nav ? caches.match("index.html") : new Response("", {status: 504})))));
 });
 
 /* Видео: кэшируем целиком и сами отдаём куски (Range) — иначе Safari не играет ролики из кэша */
