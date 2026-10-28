@@ -100,7 +100,7 @@ form#ef input{width:100%;font-size:16px;padding:12px;border:1px solid var(--line
 
 .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0 4px}.seg button{font:inherit;font-weight:600;padding:12px 6px;min-height:48px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}.seg button.on{background:var(--acc);border-color:var(--acc);color:var(--accw)}
 </style></head><body><div id="app"></div><script>const VIDEOS = {"anuro_nerye_chagi": 1, "anuro_nulo_chagi": 1, "anuro_sason_olligi": 1, "anuro_sevo_chagi": 1, "ap_cha_busigi": 1, "ap_cha_olligi": 2, "ap_murup_chagi": 1, "bakuro_nerye_chagi": 1, "bakuro_nulo_chagi": 1, "bakuro_sason_olligi": 1, "bakuro_sevo_chagi": 1, "bande_dolle_chagi": 2, "bande_dolle_goro_chagi": 2, "bituro_murup_chagi": 1, "dolle_chagi": 1, "dolle_murup_chagi": 1, "dvitcha_busigi": 2, "dvitcha_olligi": 1, "goro_chagi": 2, "olle_murup_chagi": 1, "siro_chagi": 1, "timio_anuro_nerye_chagi": 1, "timio_ap_chagi": 1, "timio_bakuro_nerye_chagi": 1, "timio_bande_dolle_chagi": 1, "timio_bande_dolle_goro_chagi": 1, "timio_dolle_chagi": 1, "timio_dvitcha_chagi": 1, "timio_goro_chagi": 1, "timio_tora_sevo_chagi": 1, "timio_tora_yupcha_jirigi": 2, "timio_yupcha_jirigi": 1, "tora_nerye_chagi": 1, "tora_sevo_chagi": 1, "tora_yupcha_jirigi": 2, "yup_ap_cha_busigi": 1, "yup_cha_olligi": 2, "yupcha_jirigi": 2};
-const PHOTOS = {"annun": 1, "charyot": 1, "chunbi": 1, "dvitbal": 2, "godzhong": 1, "guburyo_a": 2, "guburyo_b": 1, "gunun": 1, "kyocha": 1, "kyonne_jase": 1, "moa_a": 2, "moa_b": 1, "moa_c": 1, "moa_d": 1, "nache": 2, "nara_ni": 2, "niunja": 2, "sudzhik": 2};
+const PHOTOS = {"annun": 1, "charyot": 1, "chunbi": 1, "dvitbal": 2, "godzhong": 1, "guburyo_a": 2, "guburyo_b": 1, "gunun": 1, "kyocha": 1, "kyonne_jase": 1, "moa_a": 2, "moa_b": 1, "moa_c": 1, "moa_d": 1, "nache": 2, "nara_ni": 1, "niunja": 2, "sudzhik": 2};
 /* Схематичные фигуры: прямая кинематика (углы), вид сбоку (s) и спереди (f).
    Угол: 0 = вниз, +90 = вправо, 180 = вверх, -90 = влево. */
 const FIG = (() => {
@@ -492,7 +492,7 @@ const POSES = (() => {
 
 /* Содержание приложения. Источник: буклет аттестации + PDF «аттестация_новая версия3». */
 const DATA = {
-  version: "0.16.3",
+  version: "0.16.4",
   title: "Tkd guide",
   oath: [
     "Я буду любить свою Родину и делать все возможное для ее процветания.",
