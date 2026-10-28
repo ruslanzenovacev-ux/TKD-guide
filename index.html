@@ -492,7 +492,7 @@ const POSES = (() => {
 
 /* Содержание приложения. Источник: буклет аттестации + PDF «аттестация_новая версия3». */
 const DATA = {
-  version: "0.16.4",
+  version: "0.16.5",
   title: "Tkd guide",
   oath: [
     "Я буду любить свою Родину и делать все возможное для ее процветания.",
@@ -1649,7 +1649,7 @@ function figCard(fid, b, opts) {
   const np = (typeof PHOTOS !== "undefined" && PHOTOS[fid]) || 0;
   if (!P && !np) { d.innerHTML = `<h3>${esc(T[0])}</h3><p class="mean">${esc(T[1])}</p>`; return d; }   // пока нет ни фото, ни видео
   if (np && T[2] === "stance") {   // стойки: фото вместо схемы
-    d.innerHTML = `<h3>${esc(T[0])}</h3><p class="mean">${esc(T[1])}</p><div class="photos">${Array.from({length:np}, (_, i) => `<img src="img/${fid}-${i + 1}.jpg" alt="${esc(T[0])}" loading="lazy">`).join("")}</div>${P ? `<div class="cap">${esc(P.frames[0].l)}</div>` : ""}`;
+    d.innerHTML = `<h3>${esc(T[0])}</h3><p class="mean">${esc(T[1])}</p><div class="photos">${Array.from({length:np}, (_, i) => `<img src="img/${fid}-${i + 1}.jpg?v=${DATA.version}" alt="${esc(T[0])}" loading="lazy">`).join("")}</div>${P ? `<div class="cap">${esc(P.frames[0].l)}</div>` : ""}`;
     return d;
   }
   d.innerHTML = `<h3>${esc(T[0])}</h3><p class="mean">${esc(T[1])}</p>${nv ? '<div class="vid"></div><p class="small sch">Схема движения</p>' : ""}<div class="stage"></div><div class="cap"></div><div class="ctl"></div>${P.feet ? '<div class="feet"></div>' : ""}<p class="small view">${esc(P.hint)}</p>`;
@@ -1740,7 +1740,7 @@ function testRun(id) {
     if (i >= Qs.length) return result();
     const q = Qs[i];
     layout(title, `<div class="prog"><i style="width:${i / Qs.length * 100}%"></i></div><p class="small">Вопрос ${i + 1} из ${Qs.length}</p>
-      <div class="card q"><h2>${esc(q.q)}</h2>${q.t === "fig" ? (qPhoto(q) ? `<div class="qphoto"><img src="img/${q.fig}-1.jpg" alt=""></div>` : qVid(q) ? `<div class="qvid"><video src="video/${q.fig}-1.mp4" muted loop autoplay playsinline webkit-playsinline disablepictureinpicture></video></div>` : '<div class="stage sm"></div>') : ""}</div>
+      <div class="card q"><h2>${esc(q.q)}</h2>${q.t === "fig" ? (qPhoto(q) ? `<div class="qphoto"><img src="img/${q.fig}-1.jpg?v=${DATA.version}" alt=""></div>` : qVid(q) ? `<div class="qvid"><video src="video/${q.fig}-1.mp4" muted loop autoplay playsinline webkit-playsinline disablepictureinpicture></video></div>` : '<div class="stage sm"></div>') : ""}</div>
       <div class="opts">${q.o.map((o, k) => `<button class="opt" data-k="${k}">${esc(o)}</button>`).join("")}</div><div id="fb"></div>`, {back:"#/tests", tab:"tests"});
     if (q.t === "fig" && !qVid(q) && !qPhoto(q)) { const P = POSES[q.fig]; const f = FIG.mount($(".stage"), figSpec(q.fig, P.frames.map(x => ({p:x.p})), P.key != null ? P.key : P.frames.length - 1), {belt:"#fafaf5"}); f.show(0 + (DATA.tech[q.fig][2] === "hand" ? 0 : (P.key != null ? P.key : P.frames.length - 1)), true); }
     app.querySelectorAll(".opt").forEach(bt => bt.onclick = () => {
