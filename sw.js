@@ -1,7 +1,7 @@
 /* Сервис-воркер: офлайн + автообновление. Версия подставляется при сборке. */
-const V = "tkd-0.23.6";
+const V = "tkd-0.24.0", VC = "tkd-video-cc12fb84", MC = "tkd-media-cc12fb84";
 self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(V).then(c => c.addAll(["./", "index.html", "manifest.webmanifest"]).catch(() => {}))); });
-self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V && k !== "tkd-video" && k !== "tkd-media").map(k => caches.delete(k)))).then(() => self.clients.claim())); });
+self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V && k !== VC && k !== MC).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", e => {
   if (e.request.method !== "GET") return;
   const pu = new URL(e.request.url);
@@ -14,10 +14,10 @@ self.addEventListener("fetch", e => {
 
 /* Видео: кэшируем целиком и сами отдаём куски (Range) — иначе Safari не играет ролики из кэша */
 async function vid(req) {
-  const c = await caches.open("tkd-video"), key = req.url.split("#")[0];
+  const c = await caches.open(VC), key = req.url.split("#")[0];
   let res = await c.match(key);
   if (!res) {
-    try { const net = await fetch(key); if (!net.ok) return net; await c.put(key, net.clone()); res = net; }
+    try { const net = await fetch(key, {cache: "no-cache"}); if (!net.ok) return net; await c.put(key, net.clone()); res = net; }
     catch (err) { return new Response("", {status: 504}); }
   }
   const range = req.headers.get("range"); if (!range) return res;
@@ -29,7 +29,7 @@ async function vid(req) {
 
 /* Фото: сеть в приоритете, при её отсутствии — из постоянного кэша (адрес без ?v=) */
 async function img(req) {
-  const u = new URL(req.url), key = u.origin + u.pathname, c = await caches.open("tkd-media");
-  try { const net = await fetch(key); if (net.ok) { await c.put(key, net.clone()); } return net; }
+  const u = new URL(req.url), key = u.origin + u.pathname, c = await caches.open(MC);
+  try { const net = await fetch(key, {cache: "no-cache"}); if (net.ok) { await c.put(key, net.clone()); } return net; }
   catch (err) { const m = await c.match(key); return m || new Response("", {status: 504}); }
 }
