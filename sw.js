@@ -1,5 +1,5 @@
 /* Сервис-воркер: офлайн + автообновление. Версия подставляется при сборке. */
-const V = "tkd-0.26.2", VC = "tkd-video-6bbc4895", MC = "tkd-media-6bbc4895";
+const V = "tkd-0.26.3", VC = "tkd-video-6bbc4895", MC = "tkd-media-6bbc4895";
 self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(V).then(c => c.addAll(["./", "index.html", "manifest.webmanifest"]).catch(() => {}))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V && k !== VC && k !== MC).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", e => {
